@@ -2,23 +2,25 @@
   (:require [clojure.string :as str])
   (:gen-class))
 
+; This is something I had pre-written from prior code.
 (defn str->int [string]
   (let [parsed (re-find #"-?\d+" (str string))]
     (if (empty? parsed) nil (Integer. parsed))))
 
-; Starting with n, perhaps lazy in future
-; I believe filtering from a range is more performant than generating on the fly -v2
+; Starting with n, perhaps could extend to be lazy in future
+; Initially started with checking every prime, later revision optimizes
+; filters to sqrt of number
 (defn primes
   "Generates a list of primes, from 2 to n"
   [limit]
   (reduce
-      (fn [primes n]
+      (fn [primes-list n]
         (let [sqrt (Math/sqrt n)]
-          (if (= (count primes) limit)
-            (reduced primes)
-            (if (some #(= 0 (rem n %)) (take-while #(<= % sqrt) primes))
-              primes
-              (conj primes n)))))
+          (if (= (count primes-list) limit)
+            (reduced primes-list)
+            (if (some #(= 0 (rem n %)) (take-while #(<= % sqrt) primes-list))
+              primes-list
+              (conj primes-list n)))))
       [2] (range 3 Integer/MAX_VALUE 2)))
 
 ; Start with generating all, though can be optimized into half by rotating
