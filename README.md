@@ -25,3 +25,11 @@ To run tests:
 ```
 lein test fcprimes.core-test
 ```
+
+
+# Scaling
+
+This chart (made in Gorilla REPL) shows runtime for the `primes` function
+with milliseconds on Y axis and number of primes on X axis up to 100k primes.
+
+![runtime chart](https://raw.githubusercontent.com/eriktjacobsen/fcprimes/master/scaling.png)
