@@ -16,7 +16,7 @@
         (let [sqrt (Math/sqrt n)]
           (if (= (count primes) limit)
             (reduced primes)
-            (if (some #(= 0 (rem n %)) primes)
+            (if (some #(= 0 (rem n %)) (take-while #(<= % sqrt) primes))
               primes
               (conj primes n)))))
       [2] (range 3 Integer/MAX_VALUE 2)))
