@@ -13,15 +13,16 @@
 (defn primes
   "Generates a list of primes, from 2 to n"
   [limit]
-  (reduce
-      (fn [primes-list n]
-        (let [sqrt (Math/sqrt n)]
-          (if (= (count primes-list) limit)
-            (reduced primes-list)
-            (if (some #(= 0 (rem n %)) (take-while #(<= % sqrt) primes-list))
-              primes-list
-              (conj primes-list n)))))
-      [2] (range 3 Integer/MAX_VALUE 2)))
+  (when (> limit 0) ;just in case of negative or empty list
+    (reduce
+        (fn [primes-list n]
+          (let [sqrt (Math/sqrt n)]
+            (if (>= (count primes-list) limit)
+              (reduced primes-list)
+              (if (some #(= 0 (rem n %)) (take-while #(<= % sqrt) (rest primes-list)))
+                primes-list
+                (conj primes-list n)))))
+        [2] (range 3 Integer/MAX_VALUE 2))))
 
 ; Start with generating all, though can be optimized into half by rotating
 (defn times-table
