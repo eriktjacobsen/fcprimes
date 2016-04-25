@@ -11,7 +11,7 @@
 ; Initially started with checking every prime, later revision optimizes
 ; filters to sqrt of number
 (defn primes
-  "Generates a list of primes, from 2 to n"
+  "Generates a list of primes of count <limit>, starting from 2"
   [limit]
   (when (> limit 0) ;just in case of negative or empty list
     (reduce
